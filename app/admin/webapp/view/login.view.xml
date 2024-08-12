@@ -1,0 +1,34 @@
+<mvc:View
+    controllerName="app.admin.controller.login"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="Admin Login"
+    >
+        <content>
+            <VBox id="_IDGenVBox1" justifyContent="Center" alignItems="Center" width="100%" height="100%">
+                <Panel id="_IDGenPanel1" headerText="Login" class="loginPanel">
+                    <content>
+                        <Input id="usernameInput" placeholder="Username" class="loginInput" />
+                        <Input id="passwordInput" type="Password" placeholder="Password" class="loginInput" />
+                         <Button id="_IDGenButton1"
+                type="Accept"
+                text="Login"
+                press="onLogin"
+                ariaDescribedBy="acceptButtonDescription genericButtonDescription"
+            >
+                <layoutData>
+                    <FlexItemData id="_IDGenFlexItemData1" growFactor="1" />
+                </layoutData>
+            </Button>
+                    </content>
+                </Panel>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
+
+

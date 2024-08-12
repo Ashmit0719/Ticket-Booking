@@ -1,0 +1,263 @@
+_schema-version: "3.1"
+ID: QueueManagement
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: QueueManagement-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: QueueManagement-auth
+  - name: QueueManagement-connectivity
+  - name: QueueManagement-destination
+  - name: c
+  - name: QueueManagement-destination-service
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    readiness-health-check-http-endpoint: /health
+    readiness-health-check-type: http
+  build-parameters:
+    builder: npm
+- name: QueueManagement-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: QueueManagement-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: QueueManagement-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: QueueManagement-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - config.zip
+      name: config
+      target-path: resources/
+    - artifacts:
+      - billingcreation.zip
+      name: billingcreation
+      target-path: resources/
+    - artifacts:
+      - createparking.zip
+      name: createparking
+      target-path: resources/
+    - artifacts:
+      - langenliquid.zip
+      name: langenliquid
+      target-path: resources/
+    - artifacts:
+      - langenlpg.zip
+      name: langenlpg
+      target-path: resources/
+    - artifacts:
+      - langenmatr.zip
+      name: langenmatr
+      target-path: resources/
+    - artifacts:
+      - securityclearance.zip
+      name: securityclearance
+      target-path: resources/
+    - artifacts:
+      - exit.zip
+      name: exit
+      target-path: resources/
+    - artifacts:
+      - dashboard.zip
+      name: dashboard
+      target-path: resources/
+- name: config
+  type: html5
+  path: app/config
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: QueueManagement-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: QueueManagement-destination-service
+    parameters:
+      content-target: true
+  - name: QueueManagement-repo-host
+    parameters:
+      service-key:
+        name: QueueManagement-repo-host-key
+  - name: QueueManagement-auth
+    parameters:
+      service-key:
+        name: QueueManagement-auth-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: QMS_QueueManagement_repo_host
+          ServiceInstanceName: QueueManagement-html5-srv
+          ServiceKeyName: QueueManagement-repo-host-key
+          sap.cloud.service: QMS
+        - Authentication: OAuth2UserTokenExchange
+          Name: QMS_QueueManagement_auth
+          ServiceInstanceName: QueueManagement-auth
+          ServiceKeyName: QueueManagement-auth-key
+          sap.cloud.service: QMS
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: billingcreation
+  type: html5
+  path: app/billingcreation
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: createparking
+  type: html5
+  path: app/createparking
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: langenliquid
+  type: html5
+  path: app/langenliquid
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: langenlpg
+  type: html5
+  path: app/langenlpg
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: langenmatr
+  type: html5
+  path: app/langenmatr
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: securityclearance
+  type: html5
+  path: app/securityclearance
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: exit
+  type: html5
+  path: app/exit
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: dashboard
+  type: html5
+  path: app/dashboard
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: QueueManagement-destination
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-plan: lite
+- name: QueueManagement-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        existing_destinations_policy: update
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: QueueManagement-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
+    service: destination
+    service-name: QueueManagement-destination-service
+    service-plan: lite
+  requires:
+  - name: srv-api
+- name: QueueManagement-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: QueueManagement-connectivity
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: connectivity
+    service-plan: lite
+- name: QueueManagement-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      tenant-mode: dedicated
+      xsappname: gms-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: QueueManagement-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: QueueManagement-html5-srv
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production

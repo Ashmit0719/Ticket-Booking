@@ -1,0 +1,193 @@
+{
+    "_version": "1.59.0",
+    "sap.app": {
+        "id": "app.user",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.13.5",
+            "toolsId": "390476a6-0149-4e51-b1a5-af419274da5f"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "odata/v4/hanaservices/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "user-userticket": {
+                    "semanticObject": "user",
+                    "action": "userticket",
+                    "title": "{{flpTitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.124.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "app.user.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "app.user.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "Routelogin",
+                    "pattern": ":?query:",
+                    "target": [
+                        "Targetlogin"
+                    ]
+                },
+                {
+                    "name": "Routehome",
+                    "pattern": "home",
+                    "target": [
+                        "Targethome"
+                    ]
+                },
+                {
+                    "name": "RoutesignUp",
+                    "pattern": "signUp",
+                    "target": [
+                        "TargetsignUp"
+                    ]
+                },
+                {
+                    "name": "RoutebookTicket",
+                    "pattern": "bookTicket",
+                    "target": [
+                        "TargetbookTicket"
+                    ]
+                },
+                {
+                    "name": "RoutemyBookings",
+                    "pattern": "myBookings",
+                    "target": [
+                        "TargetmyBookings"
+                    ]
+                }
+            ],
+            "targets": {
+                "Targetlogin": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "login",
+                    "viewName": "login"
+                },
+                "Targethome": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "home",
+                    "viewName": "home"
+                },
+                "TargetsignUp": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "signUp",
+                    "viewName": "signUp"
+                },
+                "TargetbookTicket": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "bookTicket",
+                    "viewName": "bookTicket"
+                },
+                "TargetmyBookings": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "myBookings",
+                    "viewName": "myBookings"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "app.user.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        }
+    }
+}

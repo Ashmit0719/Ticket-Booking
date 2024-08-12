@@ -1,0 +1,36 @@
+<mvc:View 
+    xmlns:form="sap.ui.layout.form" 
+    busyIndicatorDelay="0" 
+    height="100%" 
+    displayBlock="true" 
+    xmlns:c="sap.ui.core" 
+    xmlns="sap.m" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    controllerName="app.user.controller.home">
+
+    <Page showHeader="false" id="page">
+        <content>
+            <GenericTile 
+                id="_IDGenGenericTile1" 
+                press="onBookTicket" 
+                header="Book Tickets" 
+                subheader="Book Now" 
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout">
+                <TileContent id="_IDGenTileContent1">
+                    <ImageContent id="_IDGenImageContent1" src="sap-icon://subway-train"/>
+                </TileContent>
+             </GenericTile>
+            
+            <GenericTile 
+                id="_IDGenGenericTile2" 
+                press="myBookings" 
+                header="My Bookings" 
+                subheader="View Now" 
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout">
+                <TileContent id="_IDGenTileContent2">
+                    <ImageContent id="_IDGenImageContent2" src="sap-icon://account"/>
+                </TileContent>
+            </GenericTile>
+        </content>
+    </Page>
+</mvc:View>

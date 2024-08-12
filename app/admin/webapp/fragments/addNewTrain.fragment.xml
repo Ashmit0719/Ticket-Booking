@@ -1,0 +1,112 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+>
+    <Dialog
+        id="createDialog"
+        title="Add New Train"
+        class="sapUiSmallMargin"
+    >
+        <VBox
+            id="_IDGenVBox1"
+            class="sapUiContentPadding sapUiSmallMargin"
+        >
+            <Label
+                id="_IDGenTitle2"
+                text="Train Name :"
+            />
+
+            <Input
+                id="trainCodeInput"
+                placeholder="Train Name"
+                class="sapUiSmallMarginBottom"
+            />
+            <Label
+                id="_IDGenLabel14"
+                text="Train Name :"
+            />
+            <Input
+                id="trainNameInput"
+                placeholder="Enter Train Name"
+                class="sapUiSmallMarginBottom"
+            />
+
+            <Label
+                id="_IDGenLabel19"
+                text="Source Station :"
+            />
+            <Input
+                id="sourceStationInput"
+                class="sapUiSmallMarginBottom"
+                placeholder="Enter the Source Station"
+            />
+            <Label
+                id="_IDGenLabel182"
+                text="Destination Station :"
+            />
+            <Input
+                id="destinationStationInput"
+                class="sapUiSmallMarginBottom"
+                placeholder="Enter the Destination Station"
+            />
+
+            <Label
+                id="_IDGenLabel110"
+                text="Source Stn Departure time:"
+            />
+            <Input
+                id="srcDepartureTimeInput"
+                class="sapUiSmallMarginBottom"
+                placeholder="eg: 17:45"
+            />
+            <Label
+                id="_IDGenLabel1810"
+                text="Destination Arrival Time :"
+            />
+            <Input
+                id="dstnArrivalTimeInput"
+                placeholder="eg: 19:54"
+                class="sapUiSmallMarginBottom"
+            />
+
+            <Label
+                id="_IDGenLabel18101"
+                text="Seating Capacity :"
+            />
+            <Input
+                id="seatingCapacityInput"
+                class="sapUiSmallMarginBottom"
+                placeholder="Enter Seating Capacity"
+            />
+            <Label
+                id="_IDGenLabel18102"
+                text="Ticket Price :"
+            />
+            <Input
+                id="ticketPriceInput"
+                class="sapUiSmallMarginBottom"
+                placeholder="Enter Ticket Price"
+            />
+        </VBox>
+        <footer>
+            <OverflowToolbar id="otbFooter">
+                <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                <Button
+                    id="_IDGenButton1"
+                    type="Accept"
+                    width="70px"
+                    text="Save"
+                    press="onsaveNewTrain"
+                />
+                <Button
+                    id="_IDGenButton2"
+                    type="Reject"
+                    width="70px"
+                    text="Cancel"
+                    press="oncancelNewTrain"
+                />
+            </OverflowToolbar>
+        </footer>
+    </Dialog>
+</core:FragmentDefinition>

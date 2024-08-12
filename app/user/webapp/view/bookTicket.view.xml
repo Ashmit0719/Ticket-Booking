@@ -1,0 +1,271 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    controllerName="app.user.controller.bookTicket"
+>
+    <Page
+        id="bookTicketsPage"
+        title="Book Tickets"
+        class="sapUiContentPadding"
+    >
+        <content>
+            <Panel
+                id="_IDGenPanel1"
+                headerText="Filter Trains"
+                class="sapUiResponsiveMargin"
+            >
+                <f:SimpleForm
+                    id="_IDGenSimpleForm1"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="1"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    
+                >
+                    <f:content>
+                    <Label
+                            id="_IDGenLabel29"
+                            text="Train Name"
+                        />
+                        <Input
+                            id="trainName1"
+                            width="100%"
+                            placeholder="Train Name"
+                        />
+                        <Label
+                            id="_IDGenLabel1"
+                            text="From"
+                        />
+                        <Input
+                            id="fromStation"
+                            width="100%"
+                            placeholder="Enter Departure Station"
+                        />
+
+                        <Label
+                            id="_IDGenLabel20"
+                            text="To"
+                        />
+                        
+                        <Input
+                            id="toStation"
+                            width="100%"
+                            placeholder="Enter Destination Station"
+                        />
+                        <!-- <Label
+                            id="_IDGenLabel3"
+                            text="Departure Date"
+                        /> -->
+                        <!-- <DatePicker
+                            id="departureDate"
+                            width="100%"
+                        /> -->
+
+                        <Label
+                            id="_IDGenLabel4"
+                            text="Select Class"
+                        />
+                        <SegmentedButton
+                            id="classSegmentedButton"
+                            width="100%"
+                        >
+                            <items>
+                                <SegmentedButtonItem
+                                    id="_IDGenSegmentedButtonItem1"
+                                    text="Sleeper"
+                                />
+                                <SegmentedButtonItem
+                                    id="_IDGenSegmentedButtonItem2"
+                                    text="AC 3 Tier"
+                                />
+                                <SegmentedButtonItem
+                                    id="_IDGenSegmentedButtonItem3"
+                                    text="AC 2 Tier"
+                                />
+                                <!-- Add more class options as needed -->
+                            </items>
+                        </SegmentedButton>
+                        <Button
+                            id="_IDGenButton4"
+                            text="Filter Trains"
+                            press="onFilterTrains"
+                        />
+                    </f:content>
+                </f:SimpleForm>
+            </Panel>
+
+            <Panel
+                id="_IDGenPanel"
+                headerText="Available Trains"
+                class="sapUiResponsiveMargin"
+            >
+                <Table
+                    id="trainsTable"
+                    growing="false"
+                >
+                    <columns>
+                        <Column
+                            id="_IDGenColu"
+                            width="2rem"
+                        >
+                            <header>
+                                <Label
+                                    id="_IDGenLabel9"
+                                    wrapping="true"
+                                    text="Train Code"
+                                />
+                            </header>
+                        </Column>
+                        <Column
+                            id="_colLevel"
+                            width="6rem"
+                        >
+                            <header>
+                                <Label
+                                    id="_IDLevel"
+                                    wrapping="true"
+                                    text="Train Name"
+                                />
+                            </header>
+                        </Column>
+                        <Column
+                            id="_IDGenColumn1"
+                            width="3rem"
+                        >
+                            <header>
+                                <Label
+                                    id="_IDGenLabel10"
+                                    wrapping="true"
+                                    text="Source Station"
+                                />
+                            </header>
+                        </Column>
+                        <Column
+                            id="_IDGenColumn2"
+                            width="3rem"
+                        >
+                            <header>
+                                <Label
+                                    id="_IDGenLabel11"
+                                    wrapping="true"
+                                    text="Destination Station"
+                                />
+                            </header>
+                        </Column>
+                        <Column
+                            id="_IDGenColumn5"
+                            width="2rem"
+                        >
+                            <header>
+                                <Label
+                                    id="_IDGenLabel14"
+                                    wrapping="true"
+                                    text="Ticket Price"
+                                />
+                            </header>
+                        </Column>
+                        <Column
+                            id="_IDGenColumn7"
+                            width="2rem"
+                        >
+                            <header>
+                                <Label
+                                    id="_IDGenLabel15"
+                                    wrapping="true"
+                                    text="Available Seats"
+                                />
+                            </header>
+                        </Column>
+                        <Column
+                            id="_IDGenColumn6"
+                            width="1rem"
+                        >
+                            <header>
+                                <Label
+                                    id="_IDGenLabel16"
+                                    wrapping="true"
+                                    text="Book Tickets"
+                                />
+                            </header>
+                        </Column>
+                    </columns>
+                    <items />
+                </Table>
+            </Panel>
+
+            <Panel
+                id="_IDGenPanel2"
+                headerText="Passenger Details"
+                class="sapUiResponsiveMargin"
+                visible="false"
+            >
+                <f:SimpleForm
+                    id="_IDGenSimpleForm2"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="1"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                  
+                >
+                    <f:content>
+                        <Label
+                            id="_IDGenLabel5"
+                            text="Number of Seats"
+                        />
+                        <Input
+                            id="numSeats"
+                            type="Number"
+                            width="100%"
+                        />
+
+                        <Label
+                            id="_IDGenLabel7"
+                            text="username"
+                        />
+                        <Input
+                            id="username"
+                            width="100%"
+                        />
+
+                        <Label
+                            id="_IDGenLabel8"
+                            text="Passenger Mobile no"
+                        />
+                        <Input
+                            id="passengerAge"
+                            type="Number"
+                            width="100%"
+                        />
+                    </f:content>
+                    <Button
+                        id="_IDGenButton2"
+                        text="Book Tickets"
+                        width="100%"
+                        press="onBookTicketsPress"
+                        class="sapUiLargeMarginTop sapUiPositiveAction"
+                    />
+                </f:SimpleForm>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

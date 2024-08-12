@@ -1,0 +1,43 @@
+/* Enter your custom styles here */
+.signUpPanel{
+    margin: auto;
+    max-width: 30%;
+    border-radius: 20px;
+}
+
+
+    .loginPage {
+        background-image: url('https://www.railway-technology.com/wp-content/uploads/sites/13/2018/06/indianrailways.jpg'); /* Path to your background image */
+        background-size: cover; /* Cover the entire page */
+        background-position: center; /* Center the image */
+        
+    }
+    
+    .loginPanel {
+        
+        width: 300px;
+        border: none;
+        background-color: #f9f9f9; /* Light grey background */
+        padding: 20px;
+        border-radius: 8px;
+    }
+    .loginInput {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .loginButton {
+        width: 100%;
+        background-color: #0073e6; /* Blue button background */
+        color: #0073e6;
+        border: none;
+       
+        
+    }
+    .signupButton {
+        width: 100%;
+        margin-top: 10px;
+        background-color: #f0ad4e; /* Orange button background */
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }

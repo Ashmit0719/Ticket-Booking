@@ -1,0 +1,157 @@
+_schema-version: "3.1"
+ID: TicketBooking
+description: A simple CAP project.
+version: 1.0.0
+modules:
+  - name: TicketBooking-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: TicketBooking-db
+      - name: TicketBooking-destination-service
+      - name: TicketBooking-connectivity
+      - name: TicketBooking-auth
+      - name: TicketBooking-destination
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-http-endpoint: /health
+      readiness-health-check-type: http
+    build-parameters:
+      builder: npm
+  - name: TicketBooking-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: TicketBooking-db
+    parameters:
+      buildpack: nodejs_buildpack
+  - name: TicketBooking-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: TicketBooking-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - appuser.zip
+          name: appuser
+          target-path: resources/
+  - name: appuser
+    type: html5
+    path: app/user
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+  - name: TicketBooking-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: TicketBooking-destination-service
+        parameters:
+          content-target: true
+      - name: TicketBooking-repo-host
+        parameters:
+          service-key:
+            name: TicketBooking-repo-host-key
+      - name: TicketBooking-auth
+        parameters:
+          service-key:
+            name: TicketBooking-auth-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: TicketBooking_TicketBooking_repo_host
+              ServiceInstanceName: TicketBooking-html5-srv
+              ServiceKeyName: TicketBooking-repo-host-key
+              sap.cloud.service: TicketBooking
+            - Authentication: OAuth2UserTokenExchange
+              Name: TicketBooking_TicketBooking_auth
+              ServiceInstanceName: TicketBooking-auth
+              ServiceKeyName: TicketBooking-auth-key
+              sap.cloud.service: TicketBooking
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+resources:
+  - name: TicketBooking-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: TicketBooking-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: TicketBooking-html5-srv
+      service-plan: app-host
+  - name: TicketBooking-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: srv-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+            existing_destinations_policy: update
+      service: destination
+      service-name: TicketBooking-destination-service
+      service-plan: lite
+    requires:
+      - name: srv-api
+  - name: TicketBooking-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
+  - name: TicketBooking-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+  - name: TicketBooking-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        tenant-mode: dedicated
+        xsappname: TicketBooking-${org}-${space}
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+  - name: TicketBooking_html_repo_runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production

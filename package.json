@@ -1,0 +1,54 @@
+{
+  "name": "TicketBooking",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "@sap/cds-hana": "^2",
+    "@sap/xssec": "^3.6.1",
+    "deploy": "^1.0.3",
+    "express": "^4",
+    "passport": "^0.7.0",
+    "update": "^0.7.4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^7",
+    "@sap/eslint-plugin-cds": "^3",
+    "@sap/ux-specification": "^1.120.11",
+    "eslint": "^9",
+    "rimraf": "^5.0.5"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-admin": "cds watch --open admin/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-user": "cds watch --open user/webapp/index.html?sap-ui-xx-viewCache=false",
+    "undeploy": "cf undeploy TicketBooking --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  },
+  "cds": {
+    "requires": {
+      "db": "hana",
+      "[production]": {
+        "destinations": true,
+        "connectivity": true
+      },
+      "auth": {
+        "[production]": {
+          "kind": "dummy-auth"
+        },
+        "[development]": {
+          "kind": "dummy-auth"
+        }
+      }
+    }
+  },
+  "sapux": [
+    "app/admin",
+    "app/user"
+  ]
+}

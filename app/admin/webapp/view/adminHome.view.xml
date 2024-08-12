@@ -1,0 +1,184 @@
+<mvc:View
+    controllerName="app.admin.controller.adminHome"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+    displayBlock="true"
+    height="100%"
+    busyIndicatorDelay="0"
+>
+    <OverflowToolbar
+        id="_IDGenOverflowToolbar9"
+        height="50px"
+    >
+        <Title
+            id="pageHeader"
+            text="Currently Running Trains"
+            textAlign="Center"
+        />
+        <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+        <Button
+            id="addNewTrainBtn"
+            text="Add New Train"
+            press="onAddNewTrain"
+            type="Emphasized"
+            visible="true"
+        />
+    </OverflowToolbar>
+    <Page
+        id="page"
+        showHeader="false"
+    >
+        <content>
+            <Table
+                items="{path: '/Trains', parameters: {$count: true, $$updateGroupId: 'peopleGroup'}}"
+                id="trainsTable"
+                selectionChange="onSelect"
+                mode="None"
+            >
+                <columns>
+                    <Column
+                        id="_IDGenColu"
+                        width="4rem"
+                    >
+                        <header>
+                            <Label
+                                id="_IDGenLl12"
+                                wrapping="true"
+                                text="Train Code"
+                            />
+                        </header>
+                    </Column>
+                    <Column
+                        id="_colLevel"
+                        width="6rem"
+                    >
+                        <header>
+                            <Label
+                                id="_IDLevel"
+                                wrapping="true"
+                                text="Train Name"
+                            />
+                        </header>
+                    </Column>
+                    <Column
+                        id="_IDGenColumn2"
+                        width="6rem"
+                    >
+                        <header>
+                            <Label
+                                id="_IDGenLabel7"
+                                wrapping="true"
+                                text="Source Station"
+                            />
+                        </header>
+                    </Column>
+                    <Column
+                        id="_IDGenColumn3"
+                        width="6rem"
+                    >
+                        <header>
+                            <Label
+                                id="_IDGenLabel3"
+                                wrapping="true"
+                                text="Destination Station"
+                            />
+                        </header>
+                    </Column>
+                    <Column
+                        id="_IDGenColumn7"
+                        width="6rem"
+                    >
+                        <header>
+                            <Label
+                                id="_IDGenLabel8"
+                                wrapping="true"
+                                text="Source Time"
+                            />
+                        </header>
+                    </Column>
+                    <Column
+                        id="_IDGenColumn8"
+                        width="6rem"
+                    >
+                        <header>
+                            <Label
+                                id="_IDGenLabel9"
+                                wrapping="true"
+                                text="Destination Time"
+                            />
+                        </header>
+                    </Column>
+
+                    <Column
+                        id="_IDGenColumn4"
+                        width="6rem"
+                    >
+                        <header>
+                            <Label
+                                id="_IDGenLabel4"
+                                wrapping="true"
+                                text="Seats Capacity"
+                            />
+                        </header>
+                    </Column>
+
+                    <Column
+                        id="_IDGenColumn5"
+                        width="6rem"
+                    >
+                        <header>
+                            <Label
+                                id="_IDGenLabel5"
+                                wrapping="true"
+                                text="Ticket Price"
+                            />
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem
+                        type="Active"
+                        id="item0"
+                        press=""
+                    >
+                        <cells>
+                            <Text
+                                id="id1"
+                                text="{trainCode}"
+                            />
+                            <Text
+                                id="id2"
+                                text="{trainName}"
+                            />
+                            <Text
+                                id="id3"
+                                text="{sourceStation}"
+                            />
+                            <Text
+                                id="id4"
+                                text="{destinationStation}"
+                            />
+                            <Text
+                                id="id5"
+                                text="{srcDepartureTime}"
+                            />
+                            <Text
+                                id="id6"
+                                text="{dstnArrivalTime}"
+                            />
+                            <Text
+                                id="id7"
+                                text="{seatingCapacity}"
+                            />
+                            <Text
+                                id="id8"
+                                text="{ticketPrice}"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

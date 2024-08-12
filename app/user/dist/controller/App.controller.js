@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/core/routing/History"],function(o,n){"use strict";return o.extend("app.user.controller.App",{onInit:function(){},onPressBack:function(){window.history.back()},onLogoPressed:function(){const o=this.getOwnerComponent().getRouter();o.navTo("Routehome")},onAvatarPressed:function(){const o=this.getOwnerComponent().getRouter();o.navTo("Routelogin")}})});
+//# sourceMappingURL=App.controller.js.map

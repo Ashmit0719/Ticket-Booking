@@ -1,0 +1,21 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="app.user.controller.signUp">
+    <Page id="signUpPage" title="Sign Up" class="signUpPage">
+        <content>
+            <VBox id="_IDGenVBox1" justifyContent="Center" alignItems="Center" width="100%" height="100%">
+                <Panel id="_IDGenPanel1" headerText="Sign Up" class="signUpPanel">
+                    <content>
+                        <Input id="usernameInput" placeholder="Username" class="signUpInput" />
+
+                        <Input id="emailInput" placeholder="Email" class="signUpInput" />
+                        <Input id="phoneInput" placeholder="Phone No" class="signUpInput" />
+
+                        <Input id="passwordInput" type="Password" placeholder="Password" class="signUpInput" />
+                        <Input id="passwordInput2" type="Password" placeholder="Confirm Password" class="signUpInput" />
+
+                        <Button id="signUpBtn" text="Sign Up" press="onSignUp" class="signUpButton" />
+                    </content>
+                </Panel>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
